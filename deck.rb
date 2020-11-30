@@ -7,13 +7,14 @@ class Deck
   def initialize
     @cards = []
     build_desk
+    shuffle_deck
   end
 
   def shuffle_deck
     @cards = @cards.shuffle
   end
 
-  def take_card
+  def give_card
     @cards.delete_at(0)
   end
 
