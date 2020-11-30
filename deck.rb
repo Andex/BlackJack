@@ -10,7 +10,7 @@ class Deck
   end
 
   def shuffle_deck
-    @cards.shuffle
+    @cards = @cards.shuffle
   end
 
   def take_card
