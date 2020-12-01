@@ -24,8 +24,12 @@ class Player
   end
 
   def count_all_points
-    @cards.each do |card|
-      @points << scoring(card)
+    if @cards.size == 2
+      @cards.each do |card|
+        @points << scoring(card)
+      end
+    else
+      @points << scoring(@cards[-1])
     end
   end
 end
