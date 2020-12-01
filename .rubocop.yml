@@ -13,8 +13,8 @@ Style/ClassVars:
 Metrics/MethodLength:
   Max: 50
 
-# Metrics/AbcSize:
-#   Max: 28
+Metrics/AbcSize:
+  Max: 28
 
 # Metrics/CyclomaticComplexity:
 #   Max: 16
