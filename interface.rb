@@ -23,6 +23,7 @@ class Interface
       p 'Карты диллера:'
       dealer.view_hand
       show_winner
+      p "В Вашем банке #{player.bank} долларов, ставка на новую игру 10 долларов"
       return p "Вы закончили игру с активом в #{player.bank} долларов" unless new_game?
 
       self.current_game = Game.new(player, dealer)
@@ -40,7 +41,6 @@ class Interface
   end
 
   def first_choice
-    p "В Вашем банке #{player.bank} долларов, ставка на игру 10 долларов"
     raise p 'Вы не можете продолжать т.к. Ваш банк пуст' if player.bank.zero?
 
     action = choise_action
