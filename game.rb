@@ -1,11 +1,48 @@
 class Game
-  attr_accessor :bank, :result
+  attr_reader :bet
+  attr_accessor :player, :dealer, :deck, :bank, :winner
 
-  def initialize(deck, player, dealer)
-    @bank = player.place_bet + dealer.place_bet
+  def initialize(player, dealer)
+    @player = player
+    @dealer = dealer
+    @deck = Deck.new
+    @bet = player.place_bet
+    @bank = bet + dealer.place_bet(bet)
+    game_start
+  end
+
+  def game_start
+    player.cards = []
+    dealer.cards = []
+    player.points = []
+    dealer.points = []
     2.times do
-      player.cards << deck.take_card
-      dealer.cards << deck.take_card
+      player.cards << deck.give_card
+      dealer.cards << deck.give_card
+    end
+    player.count_all_points
+    dealer.count_all_points
+  end
+
+  def end_game
+    self.winner = who_winner
+    if winner
+      winner.bank += bank
+    else
+      player.bank += bet
+      dealer.bank += bet
+    end
+  end
+
+  def who_winner
+    player_points = player.amount
+    dealer_points = dealer.amount
+    # p player.points, player.amount
+    # p dealer.points, dealer.amount
+    if player_points > dealer_points && player_points < 22
+      player
+    elsif dealer_points > player_points && dealer_points < 22
+      dealer
     end
   end
 end
