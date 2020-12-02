@@ -21,6 +21,7 @@ class Player
     raise if cards.count == 3
 
     cards << deck.give_card
+    count_all_points
   end
 
   def count_all_points
@@ -28,10 +29,10 @@ class Player
       cards.each do |card|
         points << scoring(card)
       end
-    else
+    elsif points.size != cards.size
       points << scoring(cards[-1])
     end
-    @amount = points.inject(0, :+)
+    self.amount = points.inject(0, :+)
   end
 
   def view_hand
