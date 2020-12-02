@@ -1,14 +1,12 @@
 module Scoring
-  POINTS = [1, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10].freeze
-
   def scoring(card)
     card = card_cleaning(card)
     if !card.match(/\d/).nil?
-      POINTS[card.to_i]
+      card.to_i
     elsif card == 'Т'
-      POINTS[1]
+      11
     else
-      POINTS[10]
+      10
     end
   end
 
