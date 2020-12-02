@@ -4,32 +4,43 @@ class Player
   include Scoring
 
   attr_reader :name
-  attr_accessor :bank, :action, :cards, :points
+  attr_accessor :bank, :actions, :cards, :points, :amount
 
   def initialize(name)
     @name = name
     @bank = 100
-    @action = ['Пас', 'Взять карту']
-    @cards = []
-    @points = []
+    @actions = ['Пас', 'Взять карту', 'Открыть карты']
   end
 
   def place_bet(bet = 10)
-    @bank -= bet
+    self.bank -= bet
     bet
   end
 
   def take_card(deck)
-    @cards << deck.give_card
+    raise if cards.count == 3
+
+    cards << deck.give_card
   end
 
   def count_all_points
-    if @cards.size == 2
-      @cards.each do |card|
-        @points << scoring(card)
+    if cards.size == 2
+      cards.each do |card|
+        points << scoring(card)
       end
     else
-      @points << scoring(@cards[-1])
+      points << scoring(cards[-1])
     end
+    @amount = points.inject(0, :+)
+  end
+
+  def view_hand
+    cards.each { |card| p " #{card} " }
+  end
+
+  protected
+
+  def ace_position
+    points.index(11)
   end
 end
