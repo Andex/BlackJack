@@ -4,12 +4,11 @@ class Player
   include Scoring
 
   attr_reader :name
-  attr_accessor :bank, :actions, :cards, :points, :amount
+  attr_accessor :bank, :cards, :points, :amount
 
   def initialize(name)
     @name = name
     @bank = 100
-    @actions = ['Пас', 'Взять карту', 'Открыть карты']
   end
 
   def place_bet(bet = 10)
@@ -33,6 +32,11 @@ class Player
       points << scoring(cards[-1])
     end
     self.amount = points.inject(0, :+)
+  end
+
+  def choice_strategy_points
+    ace = ace_position
+    points[ace] = 1 if amount > 21 && ace
   end
 
   def view_hand

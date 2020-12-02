@@ -6,6 +6,7 @@ class Interface
     @player = Player.new(start)
     @dealer = Dealer.new
     @current_game = Game.new(player, dealer)
+    @actions = ['Пас', 'Взять карту', 'Открыть карты']
   end
 
   def act(action)
@@ -60,7 +61,7 @@ class Interface
     p '\\nnСейчас Ваш ход', 'У Вас на руках следующие карты:'
     player.view_hand
     p "В сумме #{player.amount} очков"
-    player.actions.each_with_index { |action, ind| p "#{ind + 1} - #{action}" }
+    actions.each_with_index { |action, ind| p "#{ind + 1} - #{action}" }
     gets.chomp.to_i - 1
   end
 
