@@ -10,10 +10,14 @@ class Interface
   end
 
   def act(action)
-    p "action = #{action}"
     case action
+    when 0
+      dealer_move
+      act(choise_action)
     when 1
       take_card
+      dealer_move
+      act(choise_action)
     when 2
       current_game.end_game
       p 'Карты диллера:'
@@ -24,8 +28,6 @@ class Interface
       self.current_game = Game.new(player, dealer)
       first_choice
     end
-    dealer_move
-    act(choise_action)
   end
 
   def dealer_move
@@ -58,7 +60,7 @@ class Interface
   end
 
   def choise_action
-    p '\\nnСейчас Ваш ход', 'У Вас на руках следующие карты:'
+    p '\\nСейчас Ваш ход', 'У Вас на руках следующие карты:'
     player.view_hand
     p "В сумме #{player.amount} очков"
     actions.each_with_index { |action, ind| p "#{ind + 1} - #{action}" }
