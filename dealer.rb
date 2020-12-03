@@ -16,17 +16,8 @@ class Dealer < Player
   #   end
   # end
 
-  # def choice_action
-  #   if amount < 17 && cards.size < 3
-  #     take_card(deck)
-  #   else
-  #     0
-  #   end
-  # end
-
   def choice_strategy
-    choice_strategy_points
-    amount = points.inject(0, :+)
+    recalculate_points if amount > 21
     return 'take_card' if amount < 17 && cards.size < 3
   end
 end

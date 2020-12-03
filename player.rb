@@ -34,9 +34,12 @@ class Player
     self.amount = points.inject(0, :+)
   end
 
-  def choice_strategy_points
+  def recalculate_points
     ace = ace_position
-    points[ace] = 1 if amount > 21 && ace
+    return unless ace
+
+    points[ace] = 1
+    self.amount = points.inject(0, :+)
   end
 
   def view_hand
