@@ -14,8 +14,6 @@ class Game
   def game_start
     player.cards = []
     dealer.cards = []
-    player.points = []
-    dealer.points = []
     2.times do
       player.cards << deck.give_card
       dealer.cards << deck.give_card
@@ -35,7 +33,6 @@ class Game
   end
 
   def who_winner
-    # player.count_all_points
     dealer_points = dealer.calc_amount
     player_points = player.calc_amount
     player.recalculate_points if player_points > 21

@@ -41,7 +41,6 @@ class Interface
   def dealer_move
     p 'Дилер делает ход...'
     action = dealer.choice_strategy
-    # p "Dealer action = #{action}"
     dealer.take_card(current_game.deck) if action == 'take_card'
     p 'Карты дилера:'
     dealer.cards.count.times { print '*' }

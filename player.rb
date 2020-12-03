@@ -29,6 +29,7 @@ class Player
 
   def count_all_points
     if cards.count == 2
+      points = []
       cards.each do |card|
         points << scoring(card)
       end
