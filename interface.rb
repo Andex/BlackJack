@@ -12,7 +12,11 @@ class Interface
   def act(action)
     case action
     when 0
-      dealer_move
+      if dealer.cards.count == 3
+        p 'У дилера уже 3 карты, пасовать нельзя, Вы можете только открыть карты'
+      else
+        dealer_move
+      end
       act(choise_action)
     when 1
       take_card
