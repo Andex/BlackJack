@@ -24,11 +24,11 @@ class Player
   end
 
   def count_all_points
-    if cards.size == 2
+    if cards.count == 2
       cards.each do |card|
         points << scoring(card)
       end
-    elsif points.size != cards.size
+    elsif points.count != cards.count
       points << scoring(cards[-1])
     end
     self.amount = points.inject(0, :+)
