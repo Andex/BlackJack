@@ -35,10 +35,10 @@ class Game
   end
 
   def who_winner
-    player.recalculate_points if player.amount > 21
-    player.count_all_points
-    player_points = player.amount
-    dealer_points = dealer.amount
+    # player.count_all_points
+    dealer_points = dealer.calc_amount
+    player_points = player.calc_amount
+    player.recalculate_points if player_points > 21
     if player_points < 22 && (player_points > dealer_points || dealer_points > 21)
       player
     elsif dealer_points < 22 && (player_points < dealer_points || player_points > 21)

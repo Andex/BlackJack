@@ -4,11 +4,15 @@ class Player
   include Scoring
 
   attr_reader :name
-  attr_accessor :bank, :cards, :points, :amount
+  attr_accessor :bank, :cards, :points
 
   def initialize(name)
     @name = name
     @bank = 100
+  end
+
+  def calc_amount
+    points.inject(0, :+)
   end
 
   def place_bet(bet = 10)
@@ -31,7 +35,6 @@ class Player
     elsif points.count != cards.count
       points << scoring(cards[-1])
     end
-    self.amount = points.inject(0, :+)
   end
 
   def recalculate_points
@@ -39,7 +42,7 @@ class Player
     return unless ace
 
     points[ace] = 1
-    self.amount = points.inject(0, :+)
+    calc_amount
   end
 
   def view_hand

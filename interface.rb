@@ -26,9 +26,12 @@ class Interface
       current_game.end_game
       p 'Карты диллера:'
       dealer.view_hand
+      p "У него #{dealer.calc_amount}, у Вас #{player.calc_amount}"
       show_winner
       p "В Вашем банке #{player.bank} долларов, ставка на новую игру 10 долларов"
       return p "Вы закончили игру с активом в #{player.bank} долларов" unless new_game?
+
+      return p 'У дилера закончились деньги, Вы выиграли всю партию' if dealer.bank.zero?
 
       self.current_game = Game.new(player, dealer)
       first_choice
@@ -38,7 +41,7 @@ class Interface
   def dealer_move
     p 'Дилер делает ход...'
     action = dealer.choice_strategy
-    p "Dealer action = #{action}"
+    # p "Dealer action = #{action}"
     dealer.take_card(current_game.deck) if action == 'take_card'
     p 'Карты дилера:'
     dealer.cards.count.times { print '*' }
@@ -66,7 +69,7 @@ class Interface
   def choise_action
     p '\\nСейчас Ваш ход', 'У Вас на руках следующие карты:'
     player.view_hand
-    p "В сумме #{player.amount} очков"
+    p "В сумме #{player.calc_amount} очков"
     actions.each_with_index { |action, ind| p "#{ind + 1} - #{action}" }
     gets.chomp.to_i - 1
   end

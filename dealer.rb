@@ -17,7 +17,7 @@ class Dealer < Player
   # end
 
   def choice_strategy
-    recalculate_points if amount > 21
-    return 'take_card' if amount < 17 && cards.size < 3
+    recalculate_points if calc_amount > 21
+    return 'take_card' if calc_amount < 17 && cards.count < 3
   end
 end
