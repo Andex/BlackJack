@@ -6,9 +6,11 @@ class Player
   attr_reader :name
   attr_accessor :bank, :hand
 
+  START_CAPITAL = 100
+
   def initialize(name)
     @name = name
-    @bank = 100
+    @bank = START_CAPITAL
   end
 
   def place_bet(bet = 10)
