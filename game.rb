@@ -12,6 +12,8 @@ class Game
 
   def game_start
     @bank = bet + dealer.place_bet(bet)
+    player.hand = Hand.new
+    dealer.hand = Hand.new
     2.times do
       player.take_card(deck)
       dealer.take_card(deck)
