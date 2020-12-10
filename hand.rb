@@ -10,14 +10,8 @@ class Hand
     @points = 0
   end
 
-  def count_all_points
-    if cards.count == 2
-      cards.each do |card|
-        self.points += scoring(card.value)
-      end
-    else
-      self.points += scoring(cards[-1].value)
-    end
+  def add_points
+    self.points += scoring(cards[-1].value)
   end
 
   def recalculate_points

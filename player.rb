@@ -21,7 +21,7 @@ class Player
     raise if hand.cards.count == 3
 
     hand.cards << deck.give_card
-    hand.count_all_points
+    hand.add_points
   end
 
   def view_hand
