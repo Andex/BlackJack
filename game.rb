@@ -34,8 +34,8 @@ class Game
 
   def who_winner
     dealer_points = dealer.calc_amount
+    player.recalculate_points if player.calc_amount > 21
     player_points = player.calc_amount
-    player.recalculate_points if player_points > 21
     if player_points < 22 && (player_points > dealer_points || dealer_points > 21)
       player
     elsif dealer_points < 22 && (player_points < dealer_points || player_points > 21)
