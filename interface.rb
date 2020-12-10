@@ -47,14 +47,14 @@ class Interface
   end
 
   def first_choice
-    raise p 'Вы не можете продолжать т.к. Ваш банк пуст' if player.bank.zero?
+    raise 'Вы не можете продолжать т.к. Ваш банк пуст' if player.bank.zero?
 
     action = choise_action
-    raise p 'Нельзя открыть карты, пока диллер не сделал свой первый ход' if action == 2
+    raise 'Нельзя открыть карты, пока диллер не сделал свой первый ход' if action == 2
 
     act(action)
   rescue RuntimeError => e
-    e.message
+    p e.message
     retry
   end
 
@@ -70,7 +70,15 @@ class Interface
     player.view_hand
     p "В сумме #{player.calc_amount} очков"
     actions.each_with_index { |action, ind| p "#{ind + 1} - #{action}" }
-    gets.chomp.to_i - 1
+    action = gets.chomp.to_i - 1
+    if action.negative? || action > 2
+      raise 'Нет такого действия'
+    else
+      action
+    end
+  rescue ArgumentError => e
+    p e.message
+    retry
   end
 
   def take_card
