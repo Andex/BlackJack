@@ -71,11 +71,9 @@ class Interface
     p "В сумме #{player.hand.points} очков, без пересчета имеющихся тузов"
     actions.each_with_index { |action, ind| p "#{ind + 1} - #{action}" }
     action = gets.chomp.to_i - 1
-    if action.negative? || action > 2
-      raise 'Нет такого действия'
-    else
-      action
-    end
+    raise 'Нет такого действия' if action.negative? || action > 2
+
+    action
   rescue ArgumentError => e
     p e.message
     retry
