@@ -31,10 +31,10 @@ class Player
     if cards.count == 2
       self.points = []
       cards.each do |card|
-        points << scoring(card)
+        points << scoring(card.value)
       end
     elsif points.count != cards.count
-      points << scoring(cards[-1])
+      points << scoring(cards[-1].value)
     end
   end
 
@@ -47,7 +47,7 @@ class Player
   end
 
   def view_hand
-    cards.each { |card| p " #{card} " }
+    cards.each { |card| p " #{card.value + card.color} " }
   end
 
   protected
