@@ -12,7 +12,7 @@ class Interface
   def act(action)
     case action
     when 0
-      if dealer.cards.count == 3
+      if dealer.hand.cards.count == 3
         p 'У дилера уже 3 карты, пасовать нельзя, Вы можете только открыть карты'
       else
         dealer_move
@@ -26,7 +26,7 @@ class Interface
       current_game.end_game
       p 'Карты диллера:'
       dealer.view_hand
-      p "У него #{dealer.calc_amount}, у Вас #{player.calc_amount}"
+      p "У него #{dealer.hand.points}, у Вас #{player.hand.points}"
       show_winner
       p "В Вашем банке #{player.bank} долларов, ставка на новую игру 10 долларов"
       return p "Вы закончили игру с активом в #{player.bank} долларов" unless new_game?
@@ -43,7 +43,7 @@ class Interface
     action = dealer.choice_strategy
     dealer.take_card(current_game.deck) if action == 'take_card'
     p 'Карты дилера:'
-    dealer.cards.count.times { print '*' }
+    dealer.hand.cards.count.times { print '*' }
   end
 
   def first_choice
@@ -68,7 +68,7 @@ class Interface
   def choise_action
     p '\\nСейчас Ваш ход', 'У Вас на руках следующие карты:'
     player.view_hand
-    p "В сумме #{player.calc_amount} очков"
+    p "В сумме #{player.hand.points} очков, без пересчета имеющихся тузов"
     actions.each_with_index { |action, ind| p "#{ind + 1} - #{action}" }
     action = gets.chomp.to_i - 1
     if action.negative? || action > 2

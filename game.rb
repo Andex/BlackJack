@@ -7,19 +7,15 @@ class Game
     @dealer = dealer
     @deck = Deck.new
     @bet = player.place_bet
-    @bank = bet + dealer.place_bet(bet)
     game_start
   end
 
   def game_start
-    player.cards = []
-    dealer.cards = []
+    @bank = bet + dealer.place_bet(bet)
     2.times do
-      player.cards << deck.give_card
-      dealer.cards << deck.give_card
+      player.take_card(deck)
+      dealer.take_card(deck)
     end
-    player.count_all_points
-    dealer.count_all_points
   end
 
   def end_game
@@ -33,9 +29,9 @@ class Game
   end
 
   def who_winner
-    dealer_points = dealer.calc_amount
-    player.recalculate_points if player.calc_amount > 21
-    player_points = player.calc_amount
+    dealer_points = dealer.hand.points
+    player.hand.recalculate_points if player.hand.points > 21
+    player_points = player.hand.points
     if player_points < 22 && (player_points > dealer_points || dealer_points > 21)
       player
     elsif dealer_points < 22 && (player_points < dealer_points || player_points > 21)

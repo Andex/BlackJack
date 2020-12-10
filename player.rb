@@ -1,18 +1,15 @@
-require_relative 'modules'
+require_relative 'hand'
 
 class Player
   include Scoring
 
   attr_reader :name
-  attr_accessor :bank, :cards, :points
+  attr_accessor :bank, :hand
 
   def initialize(name)
     @name = name
     @bank = 100
-  end
-
-  def calc_amount
-    points.inject(0, :+)
+    @hand = Hand.new
   end
 
   def place_bet(bet = 10)
@@ -21,38 +18,13 @@ class Player
   end
 
   def take_card(deck)
-    raise if cards.count == 3
+    raise if hand.cards.count == 3
 
-    cards << deck.give_card
-    count_all_points
-  end
-
-  def count_all_points
-    if cards.count == 2
-      self.points = []
-      cards.each do |card|
-        points << scoring(card.value)
-      end
-    elsif points.count != cards.count
-      points << scoring(cards[-1].value)
-    end
-  end
-
-  def recalculate_points
-    ace = ace_position
-    return unless ace
-
-    points[ace] = 1
-    calc_amount
+    hand.cards << deck.give_card
+    hand.count_all_points
   end
 
   def view_hand
-    cards.each { |card| p " #{card.value + card.color} " }
-  end
-
-  protected
-
-  def ace_position
-    points.index(11)
+    hand.cards.each { |card| p " #{card.value + card.color} " }
   end
 end
